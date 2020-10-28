@@ -1,0 +1,16 @@
+# You would run this on the Kubernetes Control Plane
+# Important: Run this first!
+
+- name: Initialize Kubernetes Control Plane
+  hosts: controlplane
+  tasks:
+    - name: Install haproxy repos
+      community.kubernetes.helm_repository:
+        name: haproxy
+        repo_url: "https://haproxytech.github.io/helm-charts"
+
+    - name: Update helm repos
+      command: helm repo update
+
+    - name: Apply haproxy chart
+      command: helm install haproxy haproxy/kubernetes-ingress -f ../haproxy-values.yaml
