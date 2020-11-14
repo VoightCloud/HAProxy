@@ -1,8 +1,5 @@
-# You would run this on the Kubernetes Raspberry Pi Control Plane
-# Important: Run this first!
-
-- name: Reset All Nodes and Control Plane
+- name: Remove HaProxy
   hosts: controlplane
   tasks:
-    - name: Reset Kubernetes
+    - name: Reset HaProxy
       command: helm uninstall haproxy
