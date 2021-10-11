@@ -16,11 +16,6 @@ data:
 #  ca.crt: {{ .Values.ca.crt | b64enc }}
 ---
 apiVersion: v1
-kind: Namespace
-metadata:
-  name: devops
----
-apiVersion: v1
 kind: Secret
 metadata:
   name: site-cert
@@ -29,3 +24,14 @@ type: kubernetes.io/tls
 data:
   tls.crt: {{ .Values.tls.crt | b64enc }}
   tls.key: {{ .Values.tls.key | b64enc }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: site-cert
+  namespace: authentication
+type: kubernetes.io/tls
+data:
+  tls.crt: {{ .Values.tls.crt | b64enc }}
+  tls.key: {{ .Values.tls.key | b64enc }}
+---
