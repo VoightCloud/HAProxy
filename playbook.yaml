@@ -1,4 +1,4 @@
-- name: Install Hashicorp Vault
+- name: Install HAProxy
   hosts: localhost
   connection: local
 

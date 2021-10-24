@@ -1,3 +1,27 @@
+namespace: build
+
+deployment: haproxy
+
+serviceAccountName: ha-proxy-sa
+
+ingressClass: null
+
+defaultTLSSecretSecret: site-cert
+
+nodeAffinity: |
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/arch
+            operator: In
+            values:
+              - amd64
+
+serviceType: NodePort
+
+serviceLoadBalancerIP: 192.168.137.81
+
 voightorgkey: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   65363564376662393532623564653134636132386435323830653465623563643330363132656466
