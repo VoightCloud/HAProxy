@@ -1,7 +1,7 @@
 - name: Initialize Kubernetes Control Plane
   hosts: controlplane
   vars_files:
-    - files/admin-values.yaml
+    - haproxy/files/main.yaml
 
   tasks:
     - name: Install haproxy repos
@@ -12,21 +12,21 @@
 
     - name: Copy global chart
       copy:
-        src: files/global
+        src: haproxy/files/global
         dest: /tmp/
       delegate_to: localhost
 
     #
     - name: Copy ca cert
       copy:
-        src: files/ca.crt
+        src: haproxy/files/ca.crt
         dest: /tmp/
       delegate_to: localhost
 
     #
     - name: Copy voight.org cert
       copy:
-        src: files/voight.org.crt
+        src: haproxy/files/voight.org.crt
         dest: /tmp/
       delegate_to: localhost
 
@@ -37,7 +37,7 @@
 
     - name: Copy Customization
       copy:
-        src: files/haproxy-values.yaml
+        src: haproxy/files/haproxy-values.yaml
         dest: /tmp/
       delegate_to: localhost
 
