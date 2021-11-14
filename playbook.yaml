@@ -1,0 +1,9 @@
+- name: Install HAProxy
+  hosts: localhost
+  connection: local
+
+  vars:
+    namespace: default
+
+  roles:
+    - haproxy

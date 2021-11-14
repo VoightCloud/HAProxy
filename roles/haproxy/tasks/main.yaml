@@ -1,0 +1,39 @@
+- name: Install haproxy repos
+  kubernetes.core.helm_repository:
+    name: haproxy
+    repo_url: "https://haproxytech.github.io/helm-charts"
+
+- name: Add Voight.org Certificates
+  kubernetes.core.helm:
+    name: "{{ namespace }}-certificates"
+    chart_ref: ./roles/haproxy/files/global
+    release_namespace: "{{ namespace }}"
+    release_values:
+      namespace: "{{ namespace }}"
+      tls:
+        key: "{{ voightorgkey }}"
+        crt: "{{ voightorgcrt }}"
+
+- name: Add HAProxy
+  kubernetes.core.helm:
+    name: "{{ deployment }}"
+    chart_ref: haproxy/kubernetes-ingress
+    release_namespace: "{{ namespace }}"
+    release_values:
+      serviceAccount:
+        name: "{{ serviceAccountName }}"
+      controller:
+        ingressClass: "{{ ingressClass }}"
+        config:
+          forwarded-for: "true"
+        defaultTLSSecret:
+          secret: "{{ defaultTLSSecretSecret }}"
+        affinity: "{{ nodeAffinity }}"
+        service:
+          type: "{{ serviceType }}"
+          loadBalancerIP: "{{ serviceLoadBalancerIP }}"
+      defaultBackend:
+        affinity: "{{ nodeAffinity }}"
+        serviceAccount:
+          create: false
+          name: "{{ serviceAccountName }}"
