@@ -24,8 +24,8 @@
         name: "{{ serviceAccountName }}"
       controller:
         ingressClass: "{{ ingressClass }}"
-#        config:
-#          forwarded-for: "true"
+        config:
+          forwarded-for: "true"
         defaultTLSSecret:
           secret: "{{ defaultTLSSecretSecret }}"
         affinity: "{{ nodeAffinity }}"
