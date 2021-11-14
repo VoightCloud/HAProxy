@@ -12,4 +12,4 @@ galaxy_info:
         - all
   galaxy_tags:
     - kubernetes
-    - hashicorp_vault
+    - haproxy

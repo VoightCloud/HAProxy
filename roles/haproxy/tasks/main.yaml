@@ -5,8 +5,8 @@
 
 - name: Add Voight.org Certificates
   kubernetes.core.helm:
-    name: "{{ deployment }}-certificates"
-    chart_ref: ./roles/common/files/global
+    name: "{{ namespace }}-certificates"
+    chart_ref: ./roles/haproxy/files/global
     release_namespace: "{{ namespace }}"
     release_values:
       namespace: "{{ namespace }}"
@@ -14,7 +14,7 @@
         key: "{{ voightorgkey }}"
         crt: "{{ voightorgcrt }}"
 
-- name: Add Voight.org Certificates
+- name: Add HAProxy
   kubernetes.core.helm:
     name: "{{ deployment }}"
     chart_ref: haproxy/kubernetes-ingress
@@ -24,6 +24,8 @@
         name: "{{ serviceAccountName }}"
       controller:
         ingressClass: "{{ ingressClass }}"
+#        config:
+#          forwarded-for: "true"
         defaultTLSSecret:
           secret: "{{ defaultTLSSecretSecret }}"
         affinity: "{{ nodeAffinity }}"

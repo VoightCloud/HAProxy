@@ -1,4 +1,4 @@
-namespace: build
+namespace: default
 
 deployment: haproxy
 
@@ -8,7 +8,7 @@ ingressClass: null
 
 defaultTLSSecretSecret: site-cert
 
-nodeAffinity: |
+nodeAffinity:
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
@@ -18,9 +18,9 @@ nodeAffinity: |
             values:
               - amd64
 
-serviceType: NodePort
+serviceType: LoadBalancer
 
-serviceLoadBalancerIP: 192.168.137.81
+serviceLoadBalancerIP: 192.168.137.80
 
 voightorgkey: !vault |
   $ANSIBLE_VAULT;1.1;AES256
